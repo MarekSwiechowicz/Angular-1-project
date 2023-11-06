@@ -1,5 +1,3 @@
-Sure thing! Here's the complete `README.md` content you can copy and paste:
-
 ```markdown
 # creaTourn-frontend
 
