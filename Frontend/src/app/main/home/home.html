@@ -1,0 +1,53 @@
+<div id="home" class="page-layout simple  md-accent-bg ">
+    <div layout="column" layout-align="space-between center " flex>
+        <div id="logo-text">
+            creaTourn
+        </div>
+        <div id="description-big">
+            The simple tool to help you play tournaments with friends
+        </div>
+        <div id="description-small">
+            Sign up now for FREE, create, manage and win tournament
+        </div>
+        <div id="board-selector">
+            <div class="single-board" ng-click="vm.goToTemplates()" flex>
+                <ng-button layout="column" layout-align="space-between center">
+                    <div class="board-icon">
+                        <i class="icon-trello s140"></i>
+                    </div>
+                    <div class="board-name">TEMPLATES</div>
+                </ng-button>
+                <div class="board-description">
+                    Go to templates!
+                </div>
+            </div>
+            <div class="single-board" ng-click="vm.goToTournaments()" flex>
+                <ng-button layout="column" layout-align="space-between center">
+                    <div>
+                        <i class="icon-play-box-outline s140"></i>
+                    </div>
+                    <div class="board-name">TOURNAMENTS</div>
+                </ng-button>
+                <div class="board-description">
+                    Go to tournaments!
+                </div>
+            </div>
+        </div>
+
+        <div id="register-button" ng-if="!vm.authService.isLogged()" ng-click="vm.goToRegister()">
+            <div class="ikonka">
+                <i class="icon-account-plus s140"></i>
+            </div>
+            <div class="register-description">
+                Register to manage templates and tournaments!
+            </div>
+        </div>
+<!--         <div class="board-icon arrow">
+            <i class="icon-arrow-down s140"></i>
+        </div>
+        <div id="slider" class="slider-photos">
+            <img class="mySlides" src="photos/MyOwnTemplate.jpg">
+            <img class="mySlides" src="photos/MyOwnTournament.jpg">
+        </div> -->
+    </div>
+</div>

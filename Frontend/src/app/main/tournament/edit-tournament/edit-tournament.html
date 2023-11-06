@@ -1,0 +1,154 @@
+<div id="tournament" class="page-layout carded left-sidenav" layout="row">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+    <!-- CENTER -->
+    <div class="center" id="main-grid" layout="row" flex style="background: rgba(0,0,0,0.87);">
+        <div id="show-sidenav-tournament" class="ms-theme-options-button md-primary-bg" ng-click="vm.toggleOptionsSidenav()">
+          <md-icon  md-font-icon="icon-arrow-right" class="white-text"></md-icon>
+        </div>
+        <div id="contend-card" class="content-card" layout="column" flex  style="overflow: scroll;">
+                <div style="position: relative; {{vm.getWidth()}}">
+                    <div id="svg-inside"  ng-if="(vm.tournamentJson.connections === true || vm.tournamentJson.connections === undefined)&&vm.gotPositions">
+                        <svg width="2000" height="1000">
+                            <line x1="0" ng-x1="{{vm.positions.obj[con.from.block][con.from.pos-1].output.left}}" y1="0" ng-y1="{{vm.positions.obj[con.from.block][con.from.pos-1].output.top}}" x2="0" ng-x2="{{vm.positions.obj[con.to.block][con.to.pos].input.left}}" y2="0" ng-y2="{{vm.positions.obj[con.to.block][con.to.pos].input.top}}" stroke="black" opacity="0.1" ng-repeat="con in vm.connectionList" stroke-width="4" />
+                        </svg>
+                    </div>
+                    <div gridster="vm.gridsterOptions" flex="none">
+                        <ul>
+                            <li gridster-item="vm.customMap" ng-repeat="block in vm.tournamentJson.blocks" ng-click="vm.checkIfBlockActive(block.id) ? vm.dialogs[block.type](block, vm.tournamentJson, vm.compare) : null" flex="none" ng-class="vm.checkIfBlockActive(block.id) ? 'classActive' : 'classNotActive'" style="background-color:{{vm.colors[block.type][1]}};border-radius:5px;border:{{vm.colors[block.type][0]}} solid 1px;" id="{{block.id}}" class="block">
+                                <div class="box-content">
+                                    <block-tournament ng-model="block" tournament="vm.tournamentJson" players="vm.tournamentJson.players" compare="vm.compare"></block-tournament>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+        <!-- / CONTENT CARDb-->
+    </div>
+    <md-sidenav id="options-sidenav-tournament" class="md-sidenav-left grey-200-bg" md-component-id="left" md-is-locked-open="true" md-whiteframe="4">
+        <!-- WIDGET GROUP -->
+        <div class="widget-group">
+            <!-- NOW WIDGET -->
+            <ms-widget flippable="false" class="sidenav-widget grey-300-bg" id="tamplateName">
+                <!-- Front -->
+                <div>
+                    <ms-widget-front>
+                        <div style="height:10px;">
+                        </div>
+                        <div class="pl-16 pr-8 pv-16" layout="column" layout-align="center center">
+                            <div class="h2 secondary-text">
+                                <span>TOURNAMENT</span>
+                            </div>
+                            <div style="height:20px;">
+                            </div>
+                            <div class="font-size-26 line-height-48 secondary-text font-weight-600" layout>
+                                <div>
+                                    <span>{{vm.tournamentJson.name}}</span>
+                                </div>
+                            </div>
+                            <div style="height:20px;">
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                    </ms-widget-front>
+                    <!-- / Front -->
+                </div>
+            </ms-widget>
+            <!-- / NOW WIDGET -->
+            <!-- WEATHER WIDGET -->
+            <ms-widget flippable="false" class="sidenav-widget">
+                <!-- Front -->
+                <ms-widget-front>
+                    <div class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text" layout="column">
+                        <div class="grey-200-bg pl-20 h3 secondary-text" layout="row" layout-align="space-between center">
+                            <div flex="50" style="text-align: left;">
+                                <span>PLAYERS</span>
+                            </div>
+                            <div flex="50" style="text-align:center">
+                                {{vm.tournamentJson.players.length}}
+                                <md-icon style=" color: blue" md-font-icon="icon-account-multiple" aria-label="Close dialog"></md-icon>
+                            </div>
+                        </div>
+                        <div ng-if="vm.roles.owner || vm.roles.moderator" class="grey-200-bg h3 pl-20 secondary-text" layout="row" layout-align="space-between center">
+                            <div flex="50" style="text-align: left;">
+                                <span>MODERATOR VIEW</span>
+                            </div>
+                            <div flex="50" style="text-align:center">
+                                <md-switch ng-model="vm.edit" aria-label="Moderator view" layout-align="center center">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-16 pb-32 grey-200-bg" layout="row" layout-align="center center">
+                        <div layout="row" layout-align="start center">
+                            <md-button class="md-accent md-raised" ng-click="vm.refreshTournament()" translate="REFRESH">
+                                REFRESH
+                            </md-button>
+                        </div>
+                        <div ng-if="vm.roles.owner" class="add-tournament-button">
+                            <md-button class="md-accent md-raised pull-right btn btn-primary" ng-click="vm.newTournamentDialog()" translate="manage" style="background-color: white; color: {{vm.colors.text.red}}">
+                                MANAGE
+                            </md-button>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <ms-widget flippable="false" class="sidenav-widget">
+                <!-- Front -->
+                <ms-widget-front>
+                    <div class="p-16 pb-32 grey-200-bg" layout="column" layout-align="center center">
+                        <div class="pl-16 pr-8 pv-16" layout="column" layout-align="center center">
+                            <div class="h3 font-weight-600 secondary-text text-super ">
+                                <span>TOURNAMENT DETAILS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pv-16 ph-24" layout="row" layout-align="space-between center">
+                        <span class="h3 font-weight-400  text-super">T. NAME</span>
+                        <md-tooltip aria-label='aria'>Template name</md-tooltip>
+                        <div layout="row" layout-align="start center">
+                            <span class="h3 secondary-text">{{vm.tournamentJson.template.name}}</span>
+                        </div>
+                    </div>
+                    <div class="pv-16 ph-24" layout="row" layout-align="space-between center">
+                        <span class="h3 font-weight-400  text-super">OWNER</span>
+                        <div layout="row" layout-align="start center">
+                            <span class="h3 secondary-text">{{vm.tournamentJson.owner.name}}</span>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="space-between center" style="padding-left: 24px; padding-right: 24px;">
+                        <div>
+                            <span class="h3 text-super">MODERATORS</span>
+                        </div>
+                        <div layout="row" layout-align="center center">
+                            <div>
+                                <span class="h3">{{mod.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h3 secondary-text" layout="column" layout-align="start end" style="max-width:310px;padding-left: 24px; padding-right: 24px;">
+                        <div ng-repeat="mod in vm.tournamentJson.moderators track by $index" value="{{mod}}">
+                            {{mod.name}}
+                        </div>
+                    </div>
+                    <div>
+                        <span class="h3 font-weight-400 pv-16 ph-24 ">DESCRIPTION</span>
+                    </div>
+                    <div class="pv-16 ph-24 h3 secondary-text" layout="column" layout-align="start end" style="max-width:310px; min-height:200px;">
+                        <div style="overflow:auto;">
+                            {{vm.tournamentJson.description}}
+                        </div>
+                    </div>
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <!-- / WEATHER WIDGET -->
+        </div>
+        <!-- / WIDGET GROUP -->
+    </md-sidenav>
+    <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,74 @@
+<head>
+    <style type="text/css">
+    /*check this out https://fonts.google.com/*/
+    @import 'https://fonts.googleapis.com/css?family=Arvo';
+    /*@import 'https://fonts.googleapis.com/css?family=Baloo+Bhaina';*/
+    .blockName {
+      /*font-family: 'Baloo Bhaina', cursive;*/
+      font-family:"Roboto", "Helvetica Neue", "Arial", sans-serif;
+      color: black;
+      font-size:13px;
+      position: relative;
+      left:13px;
+    }
+    .myButton {
+        cursor: pointer;
+    }
+
+    .notOverFlow {
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+
+    .iconTool {
+      transition: all 0.5s;
+    }
+
+    .iconTool:hover {
+      color: black;
+      transition: all 0.5s;
+    }
+    </style>
+</head>
+<div id="myHeader" style="{{vm.headerHeight}}" layout="row"  layout-align="space-around center" class="myButton">
+    <div flex="10" style="text-align: center;">
+        <md-badge style="background-color: {{vm.colors.badge}};color:{{vm.colors.text.white}};padding: 4.2px 0px 0px 0px; margin-left: 10px; border-radius: 0px 0px 4px 4px;">&nbsp;{{vm.block.id}}&nbsp;</md-badge>
+        <md-tooltip>ID</md-tooltip>
+    </div>
+
+    <div flex="70" style="text-align:center; border-radius:10px 10px 0px 0px; color:{{vm.colors[vm.block.type][2]}};" class="drag notOverFlow">
+        <span class="blockName">{{vm.block.name.toUpperCase()}}</span>
+        <md-tooltip>{{vm.block.name}}</md-tooltip>
+    </div>
+
+    <div flex="20" layout="row" ng-if="vm.edit && vm.block.type !== 'startList'" >
+      <div flex="50" ng-click="vm.duplicateFunction(vm.block)" >
+          <!-- <md-tooltip>Duplicate</md-tooltip> -->
+          <md-icon class="iconTool" md-font-icon="icon-arrow-down-bold-circle-outline" style="font-size:20px"></md-icon>
+      </div>
+      <!-- <div class="myButton" flex="33" ng-click="vm.openOptionsDialog(vm.block.type)" >
+          <md-tooltip>Settings</md-tooltip>
+          <md-icon class="iconTool" md-font-icon="icon-cog" style="font-size:20px"></md-icon>
+      </div> -->
+      <div class="myButton" flex="50" ng-click="vm.deleteFunction(vm.block.id)">
+          <!-- <md-tooltip>Close</md-tooltip> -->
+          <md-icon class="iconTool" md-font-icon="icon-close" style="font-size:20px;font-weight: bold;"></md-icon>
+      </div>
+    </div>
+    <div flex="20" ng-if="!(vm.edit && vm.block.type !== 'startList')"></div>
+    <!-- <div class="myButton" layout-align="end center" flex="30" ng-click="vm.openOptionsDialog(vm.block.type)" ng-if="!(vm.edit && vm.block.type !== 'startList')">
+        <md-tooltip>Settings</md-tooltip>
+        <md-icon class="iconTool" md-font-icon="icon-cog" style="font-size:20px; text-align: right;float: right; padding-right:5px;"></md-icon>
+    </div> -->
+</div>
+
+<versus-template ng-if="vm.block.type==='versus'" ng-model="vm.block" pair="vm.pair" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" verify-availables="vm.verifyAvailables" duplicate-function="vm.duplicateFunction" edit="vm.edit"></versus-template>
+<start-list-template ng-if="vm.block.type==='startList'" pair="vm.pair" ng-model="vm.block" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" edit="vm.edit"></start-list-template>
+<standings-template ng-if="vm.block.type==='standings'" pair="vm.pair" ng-model="vm.block" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" get-available-competitions="vm.getAvailableCompetitions" verify-availables="vm.verifyAvailables" load-competition-list="vm.loadCompetitionList" get-name-by-id='vm.getNameById' all-competitions='vm.allCompetitions' edit="vm.edit"></standings-template>
+<competition-template ng-if="vm.block.type==='competition'" pair="vm.pair" ng-model="vm.block" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" verify-availables="vm.verifyAvailables" duplicate-function="vm.duplicateFunction" edit="vm.edit"></competition-template>
+<round-robin-template ng-if="vm.block.type==='RR'" pair="vm.pair" ng-model="vm.block" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" verify-availables="vm.verifyAvailables" duplicate-function="vm.duplicateFunction" edit="vm.edit"></round-robin-template>
+<randomize-list-template ng-if="vm.block.type==='randListBlock'" pair="vm.pair" ng-model="vm.block" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" delete-function="vm.deleteFunction" verify-availables="vm.verifyAvailables" duplicate-function="vm.duplicateFunction" edit="vm.edit"></randomize-list-template>
+<div style="height: 15px;">
+
+</div>

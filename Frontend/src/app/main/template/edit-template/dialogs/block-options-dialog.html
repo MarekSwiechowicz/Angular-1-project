@@ -1,0 +1,74 @@
+<div layout="column" style="background-color:#e5e5e5; border:#b2b2b2 solid 5px;border-radius:3px;padding:10px">
+    <div style="background-color:#b2b2b2;text-align: center;">
+        {{ vm.tempBlock }}
+    </div>
+    <div layout="column" style="padding:10px">
+        <div layout="row" layout-align="space-between center">
+            <div style="background-color:#cccccc;">
+                Block name
+            </div>
+            <input ng-disabled="!vm.edit" maxlength="32" ng-model="vm.block.name" flex="60" placeholder="Type name" />
+        </div>
+        <div layout="row" layout-align="space-between center"  ng-if="vm.block.type == 'startList' || vm.block.type == 'competition' || vm.block.type == 'randListBlock'">
+            <div style="background-color:#cccccc;">Players</div>
+            <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfPlayers" flex="60" default="1" type="number" min="1" max="128" />
+        </div>
+        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'RR'">
+            <div style="background-color:#cccccc;">Players</div>
+            <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfPlayers" flex="60" placeholder="Type number" type="number" min="2" />
+        </div>
+        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'RR'">
+            <div  style="background-color:#cccccc;">Rounds</div>
+            <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfRounds" flex="60" placeholder="Type number" default="1" type="number" min="1" />
+        </div>
+        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'versus' || vm.block.type == 'competition' || vm.block.type == 'RR' || vm.block.type == 'standings'">
+            <div  style="background-color:#cccccc;">Winner</div>
+            <div layout="row">
+
+	            <div>
+	            	<input ng-disabled="!vm.edit" ng-model="vm.block.logic.sort" type="radio" value="desc" checked> Higher
+	            </div>
+	            <div>
+	            	<input ng-disabled="!vm.edit" ng-model="vm.block.logic.sort" type="radio" value="asc"> Lower
+	            </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="vm.block.type == 'RR'" layout="column" style="background: #FAFAFA; padding:10px">
+        <div layout="row" layout-align="space-between center">
+            <div >
+                Allocating Points
+            </div>
+            <div>
+                <input ng-disabled="!vm.edit" ng-model="vm.block.logic.modWritesPkt" type="radio" value="false" checked> Specify default points
+            </div>
+            <div>
+                <input ng-disabled="!vm.edit" ng-model="vm.block.logic.modWritesPkt" type="radio" value="true" > Moderator writes points after match
+            </div>
+        </div>
+
+        <div ng-if="vm.block.logic.modWritesPkt == 'false'" layout="column">
+            <div layout-align="space-between center" layout="row">
+                Points for win:
+                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.wPkt">
+            </div>
+            <div layout-align="space-between center" layout="row">
+                Points for draw:
+                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.dPkt">
+            </div>
+            <div layout-align="space-between center" layout="row">
+                Points for loss:
+                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.lPkt">
+            </div>
+        </div>
+    </div>
+
+    <div layout="column" style="padding:10px" layout-align="center center">
+	    <div >
+	    	<md-button ng-if="vm.edit" ng-click="vm.close()" style="background-color:#b2b2b2;">Confirm</md-button>
+	    </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<div id="tournament" class="page-layout carded left-sidenav" layout="row">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+        <!-- CONTENT HEADER -->
+        <div id="blue-header" class="header-own" layout="row" layout-align="space-between center">
+            <div id="napis-ikonka" class="white-fg" layout="column" layout-align="space-between start" style="margin-left:50px; height:57px;">
+                <div class="h1" layout="row" layout-align="start center">
+                    <md-icon md-font-icon="icon-play-box-outline s32"></md-icon>
+                    <span>&nbsp Tournaments</span>
+                </div>
+                <div class="product-count secondary-text" style="margin-left:45px;">
+                    <span>Total tournaments:</span>
+                    <span>{{(vm.tournamentList.amount) ? vm.tournamentList.amount : 0}}</span>
+                </div>
+            </div>
+            <div>
+                <div flex layout="row" layout-align="start center">
+                    <div class="search" flex layout="row" layout-align="start center">
+                        <md-icon md-font-icon="icon-magnify" class="icon s24" style="color:rgba(255, 255, 255, 0.5)"></md-icon>
+                        <md-progress-circular ng-disabled="!vm.activated" class="md-hue-1" md-diameter="10px"></md-progress-circular>
+                        <input flex ng-model="vm.tournamentList.query" type="text" placeholder="Search for a tournament" ng-change="vm.changeList()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / CONTENT HEADER -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar-own" layout-align="space-between center">
+                <div class="add-tournament-button" flex>
+                    <md-button class="md-accent md-raised" ng-click="vm.newTournamentDialog()" aria-label="ADD TOURNAMENT" translate="CREATE NEW TOURNAMENT" translate-attr-aria-label="TOURNAMENT.ADD_TOURNAMENT">
+                        CREATE NEW TOURNAMENT
+                    </md-button>
+                </div>
+                <!-- PAGINATION TOOLBAR -->
+                <div layout="row" layout-align="start center" flex>
+                    <md-button class="md-icon-button arrow" aria-label="Previous" translate translate-attr-aria-label="MAIL.PREVIOUS" ng-click="vm.previousPage()">
+                        <md-icon md-font-icon="icon-chevron-left"></md-icon>
+                        <md-tooltip><span translate="Previous page">Previous</span></md-tooltip>
+                    </md-button>
+                    <span class="page-info" hide-sm>{{vm.tournamentList.amount ? vm.tournamentList.perPage*vm.tournamentList.page+1 : 0}} - {{ vm.tournamentList.perPage*(vm.tournamentList.page+1) < vm.tournamentList.amount ? vm.tournamentList.perPage*(vm.tournamentList.page+1) : (vm.tournamentList.amount) ? vm.tournamentList.amount : 0}} of {{(vm.tournamentList.amount) ? vm.tournamentList.amount : 0}}</span>
+                    <md-button class="md-icon-button arrow" aria-label="Next" translate translate-attr-aria-label="MAIL.NEXT" ng-click="vm.nextPage()">
+                        <md-icon md-font-icon="icon-chevron-right"></md-icon>
+                        <md-tooltip><span translate="Next Page">Next</span></md-tooltip>
+                    </md-button>
+                </div>
+                <div layout="row" layout-align="start center" flex>
+                    Labels:&nbsp&nbsp
+                    <md-select multiple name="label" placeholder="Labels to show" ng-change="vm.changeLabels()" ng-model="vm.showedLabels">
+                        &nbsp&nbsp
+                        <md-checkbox ng-model="label.value" ng-repeat="label in vm.showedLabels" ng-disabled="!label.modify"> {{label.name}} </md-checkbox>
+                        &nbsp&nbsp
+                    </md-select>
+                </div>
+                <div layout="row" layout-align="start center">
+                    <md-switch ng-model="vm.myTournamentsFlag" aria-label="Switch 1" ng-if="vm.isLogged()" ng-change="vm.changeList()">
+                        Only my tournaments
+                    </md-switch>
+                </div>
+            </div>
+            <div class="toolbar" layout="row" layout-align="space-between center">
+                <div class="label-0" layout="column" layout-align="start center" ng-if="vm.showedLabels[0].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[0].name}}
+                    </div>
+                </div>
+                <div class="label-1" layout="column" layout-align="start center" ng-if="vm.showedLabels[1].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[1].name}}
+                    </div>
+                </div>
+                <div class="label-2" layout="column" layout-align="start center" ng-if="vm.showedLabels[2].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[2].name}}s
+                    </div>
+                </div>
+                <div class="label-3" layout="column" layout-align="start center" ng-if="vm.showedLabels[3].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[3].name}}
+                    </div>
+                </div>
+                <div class="label-4" layout="column" layout-align="start center" ng-if="vm.showedLabels[4].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[4].name}}
+                    </div>
+                </div>
+                <div class="label-5" layout="column" layout-align="start center" ng-if="vm.showedLabels[5].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[5].name}}
+                    </div>
+                </div>
+                <div class="label-6" layout="column" layout-align="start center" ng-if="vm.showedLabels[6].value" flex>
+                    <div class="title">
+                        {{vm.showedLabels[6].name}}
+                    </div>
+                </div>
+            </div>
+            <!-- CONTENT -->
+            <div class="content" layout="row" flex>
+                <!-- Tournaments list pane -->
+                <md-content class="tournament-list-pane" flex ng-include="'app/main/tournament/list-tournament/views/list/list-view.html'" ms-scroll="vm.msScrollOptions">
+                </md-content>
+                <!-- / Tournaments list pane -->
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARDb-->
+    </div>
+    <!-- / CENTER -->
+</div>

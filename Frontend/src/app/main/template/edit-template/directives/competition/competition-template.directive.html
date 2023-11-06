@@ -1,0 +1,10 @@
+<div id="twoPlayers" layout="column">
+    <div layout="row" layout-align="space-between center" style="text-align: center;background-color:{{vm.colors.competition[2]}}; {{vm.labelsHeight}} {{vm.width}} border-bottom:{{vm.colors.competition[0]}} solid 3px;">
+        <div flex="35"> Players </div>
+        <div flex="35">  </div>
+        <div flex> Qualified </div>
+    </div>
+    <div ng-repeat="line in vm.block.scores track by $index" style="{{vm.labelsHeight}}">
+        <select-line block="vm.block" pair="vm.pair" available-blocks="vm.availableBlocks" array-with-blocks-and-positions="vm.arrayWithBlocksAndPositions" number="$index" functions="vm.functions" available="edit"></select-line>
+    </div>
+</div>

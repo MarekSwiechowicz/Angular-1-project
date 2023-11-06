@@ -1,0 +1,20 @@
+
+<div id="twoPlayers" layout="column" style="background-color:{{vm.colors.standings[2]}};border:{{vm.colors.standings[0]} solid 1px;">
+  <div layout="row" style="background-color:{{vm.colors.standings[2]}};border-bottom:{{vm.colors.standings[0]}} solid 2px;">
+    <div flex="15"> Pos </div>
+    <div flex="50"> Name </div>
+    <div> Result </div>
+  </div>
+  <div style="background-color:{{vm.colors.standings[2]}}; height:200px;">
+    <scrollable class="greenScrollbar" always-visible="true">
+      <div layout="row" ng-repeat="score in vm.block.scores track by $index" ng-class="'player'+vm.block.scores[$index].Uid" style={{vm.labelsHeight}} >
+        <div flex="15"> {{$index+1}}. </div>
+
+        <div flex="50" class="notOverFlow" style="border-right:{{vm.colors.standings[0]}} solid 1px;"> {{ vm.players[score.Uid].name }}
+          <md-tooltip md-direction="right"> {{ vm.players[score.Uid].name }} </md-tooltip>
+        </div>
+        <div flex="35" class="notOverFlow" style="padding-left:5px;"> {{ score.result }} </div>
+      </div>
+    </scrollable>
+  </div>
+</div>

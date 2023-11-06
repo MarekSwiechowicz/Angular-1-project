@@ -1,0 +1,169 @@
+<md-dialog class="round-robin" aria-label="New Tournament">
+    <form name="roundrobinForm" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.RRJson.name}}</span>
+                <div ng-if="vm.flagContentInput">
+                    <md-button ng-click="vm.changeContent()">
+                        <span class="generalTable">Show table</span>
+                        <md-tooltip>Show table</md-tooltip>
+                        <md-icon md-font-icon="icon-table" aria-label="Show Table"></md-icon>
+                    </md-button>
+                </div>
+                <div ng-if="!vm.flagContentInput" layout-align="center center">
+                    <md-button ng-click="vm.changeContent()">
+                        <span class="generalTable">Show rounds</span>
+                        <md-tooltip>Show rounds</md-tooltip>
+                        <md-icon md-font-icon="icon-table" aria-label="Show Input"></md-icon>
+                    </md-button>
+                </div>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                    <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <div id="contentInput" ng-if="vm.flagContentInput" style="width:600px; overflow-x:hidden;">
+            <!-- CONTENT INPUT -->
+            <div ng-repeat="queue in vm.RRJson.matches track by $index">
+                <div layout="row" style="padding:20px" layout-align="center center">
+                    <span class="md-title" style="padding:20px">
+                        Round {{$index+1}}
+                    </span>
+                </div>
+                <div ng-repeat="match in queue" layout="row" style="padding-left:10px; padding-right:10px; text-align:center;" layout-align="space-around center">
+                    <!-- POCZATEK ROW -->
+                    <div flex="30"  layout-align="center center" style="padding:10px; width:172px;">
+                        <span ng-if="vm.tournamentJson.players[match.scores[0].Uid].name.length<16" class="md-title">
+                            {{vm.tournamentJson.players[match.scores[0].Uid].name}}
+                        </span>
+                        <span ng-if="vm.tournamentJson.players[match.scores[0].Uid].name.length>15" class="md-title">
+                            {{vm.tournamentJson.players[match.scores[0].Uid].name.substring(0,15)}}...
+                        </span>
+                        <!-- <span class="md-title" style="padding:10px">player 1</span> -->
+                    </div>
+                    <div flex layout-align="start center" ng-if="!vm.viewOnly" style="padding:10px;">
+                        <md-input-container class="md-block">
+                            <label translate="{{vm.labelName}} 1">
+                                {{$index+1}}
+                            </label>
+                            <input name="score1" ng-model="match.scores[0].result" ng-pattern="/^(([0-9]+\.[0-9]+)|([0-9]+)|())$/">
+                        </md-input-container>
+                    </div>
+                    <div flex layout-align="center center" ng-if="vm.viewOnly" style="padding:10px;">
+                        <div layout-align="center center">
+                            <span>
+                                {{(match.scores[0].result) ? match.scores[0].result : '-'}}
+                            </span>
+                        </div>
+                    </div>
+                    <div flex layout-align="center center" ng-if="vm.viewOnly" style="padding:10px;">
+                        <div layout-align="center center">
+                            <span>
+                                :
+                            </span>
+                        </div>
+                    </div>
+                    <div flex layout-align="center center" ng-if="!vm.viewOnly" style="padding:10px;">
+                        <md-input-container class="md-block">
+                            <label translate="{{vm.labelName}} 2">
+                                {{$index+1}}
+                            </label>
+                            <input name="score2" ng-model="match.scores[1].result" ng-pattern="/^(([0-9]+\.[0-9]+)|([0-9]+)|())$/">
+                        </md-input-container>
+                    </div>
+                    <div flex layout-align="center center" ng-if="vm.viewOnly" style="padding:10px;">
+                        <div>
+                            <span>
+                                {{(match.scores[1].result) ? match.scores[1].result : '-'}}
+                            </span>
+                        </div>
+                    </div>
+                    <div flex="30" layout-align="center center" style="padding:20px; width:100px;">
+                        <span ng-if="vm.tournamentJson.players[match.scores[1].Uid].name.length<16" class="md-title">
+                            {{vm.tournamentJson.players[match.scores[1].Uid].name}}
+                        </span>
+                        <span ng-if="vm.tournamentJson.players[match.scores[1].Uid].name.length>15" class="md-title">
+                            {{vm.tournamentJson.players[match.scores[1].Uid].name.substring(0,15)}}...
+                        </span>
+                    </div>
+                </div>
+                <!-- KONIEC ROW -->
+            </div>
+        </div>
+        <!-- END OF CONTENT INPUT -->
+        <div id="contentTable" ng-if="!vm.flagContentInput" style="min-width: 900px; overflow-x:hidden; text-align:center;">
+
+            <!-- CONTENT TABLE -->
+            <div layout="row" style="padding: 20px">
+                <div layout="column" flex>
+                    {{vm.tableLabels[0]}}
+                </div>
+                <div layout="column" flex="20">
+                   {{vm.tableLabels[1]}}
+                </div>
+                <div layout="column" ng-repeat="label in vm.tableLabels.slice(2,7) track by $index" flex>
+                    {{label}}
+                </div>
+            </div>
+            <div ng-repeat="player in vm.tableValues track by $index" layout="row" style="padding-left: 20px;padding-right: 20px; padding-bottom:20px">
+                <div layout="column" flex>
+                    <span class="md-title">{{$index+1}}.</span>
+                </div>
+                <div layout="column" flex="20" style=" width:100px;">
+                    <span ng-if="player.name.length<16" class="md-title">{{player.name}}</span>
+                    <span ng-if="player.name.length>15" class="md-title">{{player.name.substring(0,15)}}...</span>
+                </div>
+                <div layout="column" flex>
+                    <span class="md-title">{{player.score}}</span>
+                </div>
+                <div layout="column" flex>
+                    <span class="md-title">{{player.wins}}</span>
+                </div>
+                <div layout="column" flex>
+                    <span class="md-title">{{player.draws}}</span>
+                </div>
+                <div layout="column" flex>
+                    <span class="md-title">{{player.loss}}</span>
+                </div>
+                <div layout="column" flex>
+                    <span class="md-title">{{player.allMatches}}</span>
+                </div>
+            </div>
+        </div>
+      <!-- </div> -->
+      <!-- <div ng-repeat="player in vm.tableValues track by $index" layout="row" style="padding-left: 20px;padding-right: 20px; padding-bottom:20px">
+        <div layout="column" flex>
+          <span class="md-title">{{$index+1}}.</span>
+        </div>
+        <div layout="column" flex="20">
+          <span ng-if="player.name.length<16" class="md-title">{{player.name}}</span>
+          <span ng-if="player.name.length>15" class="md-title">{{player.name.substring(0,15)}}...</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">{{player.score}}</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">{{player.wins}}</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">{{player.draws}}</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">{{player.loss}}</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">{{player.allMatches}}</span>
+
+        </div>
+      </div> -->
+    <!-- </div> -->
+    <!-- END OF CONTENT TBALE-->
+    <md-dialog-actions layout="row" layout-align="space-between center" ng-if="!vm.viewOnly && vm.flagContentInput" style="background-color:#f5f5f5;">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.flagNewTournament" ng-click="vm.saveScores()" class="send-button md-accent md-raised" ng-disabled="roundrobinForm.$invalid || roundrobinForm.$pristine" aria-label="SAVE" translate="TOURNAMENT.SAVE" translate-attr-aria-label="TOURNAMENT.SAVE">
+          SAVE
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

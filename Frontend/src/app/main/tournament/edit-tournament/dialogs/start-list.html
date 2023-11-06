@@ -1,0 +1,56 @@
+<md-dialog class="startlist" aria-label="New Tournament">
+  <form name="startlistForm" class="md-inline-form" novalidate>
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title">{{vm.title}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div style="max-height:600px; overflow:auto; overflow-x:hidden;">
+      <div layout="row" style="margin: 20px; min-width: 400px; text-align: center; overflow-x:hidden" layout-align="space-around center">
+
+        <div layout="column" flex>
+          <span class="md-title">Player</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">Name/Select</span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-title">Real user</span>
+        </div>
+
+      </div>
+      <div layout="row" ng-repeat="player in vm.startListPlayers track by $index" style="margin-left: 20px; margin-right: 20px;">
+
+        <div layout="column" flex layout-align="center center">
+          <span class="md-title">{{$index+1}}.&nbsp;</span>
+        </div>
+
+        <div layout="column" layout-align="bottom end" ng-if="!player.real" style="width:133.33px; height:76px;">
+          <md-input-container class="md-block">
+            <label translate="Name {{$index+1}}">{{$index+1}}</label>
+            <input name="{{'name'+($index+1)}}" ng-model="player.name" maxlength="26">
+          </md-input-container>
+        </div>
+
+        <div layout="column" flex layout-align="start center" ng-if="player.real" style="width:133.33px; height:76px;">
+          <pagination-select name="users" ng-model="player" source="vm.findUsers" style="width:133.33px; height:76px;"></pagination-select>
+        </div>
+
+        <div layout="column" flex layout-align="center center">
+          <md-switch name="switch{{$index}}" ng-model="player.real" ng-change="vm.clear_id($index)" aria-label="switch"></md-switch>
+        </div>
+
+      </div>
+    </div>
+    <md-dialog-actions layout="row" layout-align="space-between center" style="background-color:#f5f5f5;">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.flagNewTournament" ng-click="vm.save()" class="send-button md-accent md-raised" ng-disabled="startlistForm.$invalid || startlistForm.$pristine" aria-label="SAVE" translate="TOURNAMENT.SAVE" translate-attr-aria-label="TOURNAMENT.SAVE">
+          SAVE
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

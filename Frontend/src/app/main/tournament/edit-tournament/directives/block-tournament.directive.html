@@ -1,0 +1,55 @@
+<head>
+  <style type="text/css">
+    /*check this out https://fonts.google.com/*/
+    @import 'https://fonts.googleapis.com/css?family=Baloo+Bhaina';
+    @import 'https://fonts.googleapis.com/css?family=Convergence';
+    .blockName {
+      font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+      font-size:13px;
+      position: relative;
+      color: black;
+    }
+    .otherField {
+      font-family: 'Convergence', sans-serif;
+    }
+    .notOverFlow {
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      padding-right: 5px;
+    }
+    .noSelectable {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
+  </style>
+</head>
+<div >
+
+<div id="myHeader" style="{{vm.headerHeight}}" layout="row"  layout-align="space-around center" class="noSelectable">
+  <!-- <div class="notOverFlow" flex="100" style="text-align:center; background-color:{{vm.colors[vm.block.type][1]}};min-width:180;text-align:center;border-radius:10px 10px 0px 0px;">
+    {{vm.block.name}}
+</div> -->
+<div flex style="text-align:center; border-radius:10px 10px 0px 0px; color:{{vm.colors[vm.block.type][2]}}; background-color:{{vm.colors[vm.block.type][1]}}; min-width:238; height:25px; padding-top:3px;" class="drag notOverFlow">
+    <span class="blockName">{{vm.block.name.toUpperCase()}}</span>
+    <md-tooltip md-direction="top">{{vm.block.name}}</md-tooltip>
+</div>
+  <!-- <md-tooltip md-direction="top" ng-if="vm.block.name.length>15"> {{vm.block.name}}</md-tooltip> -->
+
+</div>
+
+<versus-tournament ng-if="vm.block.type==='versus'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+<start-list-tournament ng-if="vm.block.type==='startList'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+<standings-tournament ng-if="vm.block.type==='standings'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+<competition-tournament ng-if="vm.block.type==='competition'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+<round-robin-tournament ng-if="vm.block.type==='RR'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+<randomize-list-tournament ng-if="vm.block.type==='randListBlock'" class="myButton noSelectable otherField" ng-model="vm.block" players="vm.players" tournament="vm.tournament" compare="vm.compare" />
+
+<div style="height: 15px;">
+
+</div>
+</div>

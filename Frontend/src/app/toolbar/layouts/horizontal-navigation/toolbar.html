@@ -1,0 +1,94 @@
+<div layout="column" layout-align="space-between stretch" flex class="h-64" >
+    <div class="top-row" layout="row" layout-align="space-between center">
+
+        <div id="menu-bar" layout="row" layout-align="start center">
+<!--             <div class="navigation-toggle" ng-show="true">
+                <md-button class="md-icon-button" ng-click="vm.toggleHorizontalMobileMenu()"
+                           aria-label="Toggle Mobile Navigation">
+                    <md-icon md-font-icon="icon-menu"></md-icon>
+                </md-button>
+            </div> -->
+
+            <button ng-click="vm.goToHome()" class="logo" layout="row" layout-align="start center">
+                <span class="logo-image" >creaTourn</span>
+                <!-- <span class="logo-text">creaTourn</span> -->
+            </button>
+
+            <div id="logo-home" ng-click="vm.goToHome()" class="logo" layout="row" layout-align="start center" >
+                <md-icon md-font-icon="icon-home"> </md-icon>
+                <md-tooltip>Home</md-tooltip>
+            </div>
+            <div ng-if="vm.isLogged()" id="icon-template" class="small-button" ng-click="vm.goToTemplates()" layout="row" layout-align="start center" >
+                <md-icon md-font-icon="icon-trello"> </md-icon>
+                <md-tooltip>Templates</md-tooltip>
+            </div>
+            <div ng-if="vm.isLogged()" id="icon-tournament" class="small-button" ng-click="vm.goToTournaments()" layout="row" layout-align="start center" >
+                <md-icon md-font-icon="icon-play-box-outline"> </md-icon>
+                <md-tooltip>Tournaments</md-tooltip>
+            </div>
+
+
+            <div class="bottom-row" id="link-nav">
+                <div  id="horizontal-navigation" ui-view="navigation"></div>
+            </div>
+
+        </div>
+
+        <div layout="row" layout-align="start center">
+            <md-progress-circular id="toolbar-progress" ng-if="$root.loadingProgress" class="md-accent"
+                                  md-mode="indeterminate" md-diameter="32">
+            </md-progress-circular>
+
+            <!-- <ms-shortcuts></ms-shortcuts> -->
+
+            <md-menu-bar id="user-menu">
+                <md-menu md-position-mode="left bottom" ng-if="vm.isLogged()">
+                    <md-button class="user-button" ng-click="$mdOpenMenu()"
+                               aria-label="User settings"
+                               translate translate-attr-aria-label="TOOLBAR.USER_SETTINGS">
+                        <div layout="row" layout-align="space-between center">
+                            <div class="avatar-wrapper">
+                                <img md-menu-align-target class="avatar" src="assets/images/avatars/profile.jpg">
+                                <md-icon md-font-icon ng-class="vm.userStatus.icon"
+                                         ng-style="{'color': vm.userStatus.color }"
+                                         class="icon status s16">
+                                </md-icon>
+                            </div>
+                            <span class="username" hide-sm>{{vm.getUserName()}}</span>
+                            <md-icon md-font-icon="icon-chevron-down"
+                                     class="icon s16" hide-sm></md-icon>
+                        </div>
+                    </md-button>
+
+                    <md-menu-content width="3">
+
+                        <md-menu-item class="md-indent">
+                            <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
+                            <md-button ng-click="vm.logout()">Logout</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-menu-bar>
+            <div ng-if="!vm.isLogged()" layout="row" id="user-menu" flex>
+              <div id="auth-inputs">
+                <div class="input-container">
+                    <md-input-container md-no-float>
+                      <input ng-model="vm.login.email" placeholder="Email" ng-keyup="$event.keyCode===13 && vm.tryLogin()"/>
+                    </md-input-container>
+                </div>
+                <div class="input-container">
+                    <md-input-container md-no-float>
+                      <input ng-model="vm.login.password" placeholder="Password" ng-keyup="$event.keyCode===13 && vm.tryLogin()" type="password"/>
+                    </md-input-container>
+                </div>
+              </div>
+              <div id="auth-buttons">
+                <md-button class="button login" ng-click="vm.tryLogin()">LOGIN</md-button>
+                <!-- <md-button class="button register" ng-click="vm.goToRegister()">REGISTER</md-button> -->
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

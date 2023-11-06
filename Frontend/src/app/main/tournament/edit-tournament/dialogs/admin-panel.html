@@ -1,0 +1,72 @@
+<div>
+    <md-toolbar class="md-accent md-hue-2">
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <span class="title">Administrator Panel</span>
+            <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+<div style="width: 400px; padding:20px;" layout="column" id="columnDuzy">
+    <div layout="row" layout-align="space-between center">
+        <div>
+            <label style="font-size: 14pt; font-family: 'Verdana';">Name</label>
+        </div>
+        <div style="width:205px; height:70px;">
+            <md-input-container layout="row" layout-align="center center">
+                <input maxlength="20" ng-model="vm.tournament.name" required style="width: 200px;" aria-label="arialabel" />
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-between center">
+        <div>
+            <label style="font-size: 14pt; font-family: 'Verdana';">Private</label>
+        </div>
+        <div style="width:205px; height:70px;">
+            <md-switch ng-model="vm.tournament.private" class="md-primary" aria-label="arialabel" layout-align="end center"></md-switch>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-between center">
+        <div>
+            <label style="font-size: 14pt; font-family: 'Verdana';">Connections</label>
+        </div>
+        <div style="width:205px; height:70px;">
+            <md-switch ng-model="vm.tournament.connections" class="md-primary" aria-label="arialabel" layout-align="end center"></md-switch>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-between center" ng-if="!vm.exists">
+        <div>
+            <label style="font-size: 14pt; font-family: 'Verdana';">Template</label>
+        </div>
+        <div style="width:205px; height:70px;">
+            <md-input-containter>
+                <pagination-select name="'templates'" source="vm.findTemplates" ng-model="vm.tournament.template"></pagination-select>
+            </md-input-containter>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-between center">
+        <div>
+            <label style="font-size: 14pt; font-family: 'Verdana';">Moderators</label>
+        </div>
+        <div style="width:205px; height:70px;">
+            <md-input-containter>
+                <pagination-select name="'users'" source="vm.findUsers" ng-model="vm.tournament.moderators" multiple style="width:133.33px; height:76px;"></pagination-select>
+            </md-input-containter>
+        </div>
+    </div>
+    <div layout="row" layout-align="center center">
+        <div layout="column" layout-align="center center">
+            <div style="padding-top:40px;">
+                <label style="font-size: 14pt; font-family: 'Verdana';">Description</label>
+            </div>
+            <div style="border:10px;padding-top:20px;">
+                <textarea ng-model="vm.tournament.description" style="background-color: #FFFFFF; resize: none; border:1px inset; border-style: solid; border-color: lightgrey;" rows="5" cols="49"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<md-button style="background-color: lightblue" ng-if="vm.exists" ng-click="vm.save()">SAVE</md-button>
+<md-button style="background-color: lightblue" ng-if="!vm.exists" ng-click="vm.run()">RUN</md-button>
+<md-button style="background-color: #FAAAAA" ng-if="vm.exists" ng-click="vm.remove()">DELETE</md-button>
+</div>

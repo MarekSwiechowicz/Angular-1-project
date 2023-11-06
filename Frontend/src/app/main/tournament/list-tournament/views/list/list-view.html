@@ -1,0 +1,67 @@
+<div layout-align="center center" style="position: absolute; left: 500px; top: 150px;">
+  <md-progress-circular ng-disabled="!vm.activated2" class="md-hue-1" md-diameter="70px"></md-progress-circular>
+</div>
+
+<div class="tournament-items" ng-sortable="vm.sortableOptions" ng-model="vm.tournaments" ng-class="{'sortable': vm.taskOrder === ''}">
+  <div class="tournament-item" md-ink-ripple layout="row" layout-align="start center" ng-click="vm.showTournament($event, tournament._id)" ng-repeat="tournament in vm.tournaments track by $index" ng-if="!vm.activated2" ng-class="{'starred': task.starred, 'selected': task.selected, 'completed': task.completed}">
+
+
+
+    <div class="col-2 label-0" layout="column" layout-align="start center" ng-if="vm.showedLabels[0].value" flex>
+      <div class="ident"  style="font-weight: bold">
+        {{tournament.name}}
+      </div>
+    </div>
+    <div class="col-3 label-1" layout="column" layout-align="start center" ng-if="vm.showedLabels[1].value" flex>
+      <div class="ident">
+        {{tournament.numberOfPlayers}}
+      </div>
+    </div>
+    <div class="col-4 label-2" layout="row" layout-align="center center" ng-if="vm.showedLabels[2].value" flex>
+      <div ng-if="tournament.role.player">
+        <md-icon md-font-icon="icon-sword" style="color: limegreen;"></md-icon>
+        <md-tooltip>Player</md-tooltip>
+      </div>
+      <div ng-if="tournament.role.moderator">
+        <md-icon md-font-icon="icon-pen" style="color: royalblue;"></md-icon>
+        <md-tooltip>Moderator</md-tooltip>
+      </div>
+      <div ng-if="tournament.role.owner">
+        <md-icon md-font-icon="icon-key-variant" style="color: orange;"></md-icon>
+        <md-tooltip>Owner</md-tooltip>
+      </div>
+      <div ng-if="!(tournament.role.player||tournament.role.moderator||tournament.role.owner)">
+        <md-icon md-font-icon="icon-minus" style="color: red;"></md-icon>
+        <md-tooltip>None</md-tooltip>
+      </div>
+
+    </div>
+    <div class="col-5 label-3" layout="column" layout-align="start center" ng-if="vm.showedLabels[3].value" flex>
+      <div ng-if="!tournament.private">
+        <md-icon md-font-icon="icon-check" style="color: green;" class="s18"></md-icon>
+      </div>
+      <div ng-if="tournament.private">
+        <md-icon md-font-icon="icon-close" style="color: red;" class="s18"></md-icon>
+      </div>
+    </div>
+    <div class="col-6 label-4" layout="column" layout-align="start center" ng-if="vm.showedLabels[4].value" flex>
+      <div class="ident">
+        {{tournament.owner.name}}
+      </div>
+    </div>
+    <div class="col-7 label-5" layout="column" layout-align="start center" ng-if="vm.showedLabels[5].value" flex>
+      <div class="ident">
+        {{tournament.template.name}}
+      </div>
+    </div>
+    <div class="col-8 label-6" layout="column" layout-align="start center" ng-if="vm.showedLabels[6].value" flex>
+      <div class="ident">
+        {{tournament.description.split('').length
+        < 20 ? tournament.description : tournament.description.split( '').slice(0,20).join( '')+ '...'}} </div>
+      </div>
+
+    </div>
+    <!-- KONIEC ROW -->
+
+  </div>
+  <!-- / TASK LIST ITEMS

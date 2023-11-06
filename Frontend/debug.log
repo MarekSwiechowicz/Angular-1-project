@@ -1,0 +1,6 @@
+[0825/150618:ERROR:process_info.cc(608)] range at 0x654335b000000000, size 0x75 fully unreadable
+[0825/150618:ERROR:process_info.cc(608)] range at 0x6543361400000000, size 0x75 fully unreadable
+[0825/150618:ERROR:process_info.cc(608)] range at 0x0, size 0x75 fully unreadable
+[0825/150618:ERROR:process_reader_win.cc(142)] SuspendThread: Odmowa dostêpu. (0x5)
+[0825/150618:ERROR:exception_snapshot_win.cc(88)] thread ID 4004 not found in process
+[0825/150618:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::InitializeException failed

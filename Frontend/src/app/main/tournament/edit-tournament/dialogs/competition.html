@@ -1,0 +1,44 @@
+<md-dialog class="competition" aria-label="New Tournament">
+  <form name="competitionForm" class="md-inline-form" novalidate>
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title">{{vm.title}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div style="max-height:600px; overflow:auto; overflow-x:hidden;">
+
+      <div layout="row" ng-repeat="player in vm.players track by $index" ng-model="vm.players" ms-scroll>
+        <div layout="column" flex layout-align="center center">
+          <span ng-if="player.name.length>10" class="md-title">{{player.name.substring(0,10)}}...</span>
+
+          <span ng-if="player.name.length<11" class="md-title">{{player.name}}</span>
+        </div>
+
+        <div layout="column" flex>
+          <md-input-container class="md-block">
+            <label translate="Score {{$index+1}}">{{$index+1}}</label>
+            <input name="{{'score'+($index+1)}}" ng-model="player.result" ng-pattern="/^(([0-9]+\.[0-9]+)|([0-9]+)|())$/">
+
+            <div ng-messages="competitionForm.name.$error" ng-show="competitionForm.name.$touched" role="alert">
+              <div ng-message="required">
+                <span translate="Score {{$index+1}} required">Score {{$index+1}} field is required</span>
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+      </div>
+    </div>
+
+    <md-dialog-actions>
+      <div layout="row" flex layout-align="start center">
+        <md-button type="submit" ng-if="!vm.flagNewTournament" ng-click="vm.saveScores()" class="send-button md-accent md-raised" ng-disabled="competitionForm.$invalid || competitionForm.$pristine" aria-label="SAVE" translate="TOURNAMENT.SAVE" translate-attr-aria-label="TOURNAMENT.SAVE">
+          SAVE
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+  {{vm.block.inputs}}
+</md-dialog>

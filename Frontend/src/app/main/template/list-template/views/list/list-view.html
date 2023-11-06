@@ -1,0 +1,68 @@
+<div layout-align="center center" style="position: absolute; left: 500px; top: 150px;">
+    <md-progress-circular ng-disabled="!vm.activated2" class="md-hue-1" md-diameter="70px"></md-progress-circular>
+</div>
+<div class="template-items" ng-sortable="vm.sortableOptions" ng-model="vm.templates" ng-class="{'sortable': vm.taskOrder === ''}">
+    <div class="template-item" md-ink-ripple layout="row" layout-align="start center" ng-click="vm.showTemplate($event, template._id)" ng-repeat="template in vm.templates track by $index" ng-if="!vm.activated2" ng-class="{'starred': task.starred, 'selected': task.selected, 'completed': task.completed}">
+        <div class="label-0" layout="column" layout-align="start center" ng-if="vm.showedLabels[0].value" flex>
+            <div class="ident" style="font-weight: bold">
+                {{template.name}}
+            </div>
+        </div>
+        <div class="label-1-" layout="column" layout-align="start center" ng-if="vm.showedLabels[1].value" flex>
+            <div class="ident">
+                {{template.numberOfPlayers}}
+            </div>
+        </div>
+        <div class="label-2-" layout="column" layout-align="start center" ng-if="vm.showedLabels[2].value" flex>
+            <div ng-if="vm.ifOwner(template)">
+                <md-icon md-font-icon="icon-check" style="color: green;" class="s18"></md-icon>
+            </div>
+            <div ng-if="!vm.ifOwner(template)">
+                <md-icon md-font-icon="icon-close" style="color: red;" class="s18"></md-icon>
+            </div>
+        </div>
+        <div class="label-3-" layout="column" layout-align="start center" ng-if="vm.showedLabels[3].value" flex>
+            <div ng-if="!template.private">
+                <md-icon md-font-icon="icon-check" style="color: green;" class="s18"></md-icon>
+            </div>
+            <div ng-if="template.private">
+                <md-icon md-font-icon="icon-close" style="color: red;" class="s18"></md-icon>
+            </div>
+        </div>
+        <div class="label-4-" layout="column" layout-align="start center" ng-if="vm.showedLabels[4].value" flex>
+            <div class="ident">
+                {{template.owner.name}}
+            </div>
+        </div>
+        <div class="label-5-" layout="column" layout-align="start center" ng-if="vm.showedLabels[5].value" flex>
+            <md-button class="md-accent md-raised" style="background-color: {{(template.valid) ? 'green' : '#75B075'}}" ng-click="vm.runTemplate($event, template)" aria-label="RUN TEMPLATE" translate-attr-aria-label="TEMPLATE.RUN_TEMPLATE">
+                RUN
+                <md-tooltip ng-if="!template.valid">Template is not valid</md-tooltip>
+            </md-button>
+        </div>
+        <div class="label-6-" ng-if="vm.ifOwner(template)" layout="column" layout-align="start center" ng-if="vm.showedLabels[6].value" flex>
+            <div ng-if="vm.showedLabels[6].value">
+                <md-button class="md-accent md-raised" style="background-color: lightgray; color: black" ng-click="vm.editTemplate($event, template._id)" aria-label="EDIT TEMPLATE" translate-attr-aria-label="TEMPLATE.EDIT_TEMPLATE">
+                    EDIT
+                </md-button>
+            </div>
+        </div>
+        <div class="label-6-" ng-if="!vm.ifOwner(template)" layout="column" layout-align="start center" ng-if="vm.showedLabels[6].value" flex>
+            <div ng-if="vm.showedLabels[6].value">
+                <md-button class="md-accent md-raised" ng-click="vm.addToMyTemplates($event, template._id)" aria-label="EDIT TEMPLATE" translate-attr-aria-label="TEMPLATE.EDIT_TEMPLATE">
+                    ADD
+                </md-button>
+            </div>
+        </div>
+        <div class="label-7-" layout="column" layout-align="start center" ng-if="vm.showedLabels[7].value" flex>
+            <div ng-if="vm.ifOwner(template)">
+                <md-button class="md-accent md-raised" style="background-color: red" ng-click="vm.delTemplate($event, template._id)" aria-label="DEL TEMPLATE" translate-attr-aria-label="TEMPLATE.DEL_TEMPLATE">
+                    DELETE
+                </md-button>
+            </div>
+        </div>
+        <!-- end of 7 column -->
+    </div>
+    <!-- KONIEC ROW -->
+</div>
+<!-- / TASK LIST ITEMS

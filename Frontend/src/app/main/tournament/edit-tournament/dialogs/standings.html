@@ -1,0 +1,29 @@
+<md-dialog class="tournament-dialog" aria-label="New Tournament">
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                    <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+
+
+
+
+
+
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-if="!vm.flagNewTournament" ng-click="vm.saveTournament()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="tournamentForm.$invalid || tournamentForm.$pristine"
+                           aria-label="SAVE" translate="TOURNAMENT.SAVE" translate-attr-aria-label="TOURNAMENT.SAVE">
+                    SAVE
+                </md-button>
+            </div>
+        </md-dialog-actions>
+
+</md-dialog>

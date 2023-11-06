@@ -1,0 +1,60 @@
+<style>
+  md-tooltip ._md-content {
+      height: auto;
+  }
+</style>
+<md-select name="name" aria-label="name" ng-model="ngModel._id" md-on-open="vm.onSelectOpen()" md-on-close="vm.onSelectClose()" md-selected-text="vm.selectedName()" ng-if="!multiple">
+  <md-select-header class="demo-select-header">
+    <input ng-model="vm.filter.search" ng-keydown="vm.selectChange($event)" ng-change="vm.findList()" maxlength="127" type="search"
+           placeholder="{{vm.placeholder}}"
+           class="demo-header-searchbox _md-text">
+        <div layout="row" layout-align="start center">
+            <span class="page-info" hide-sm>{{vm.pagination()}}</span>
+            <md-button class="md-icon-button arrow" ng-click="vm.prevPage()" aria-label="Previous" translate translate-attr-aria-label="TODO.PREVIOUS">
+                <md-icon md-font-icon="icon-chevron-left"></md-icon>
+            </md-button>
+            <span class="page-info" hide-sm>
+                Page&nbsp;{{vm.filter.page}}
+            </span>
+            <md-button class="md-icon-button arrow" ng-click="vm.nextPage()" aria-label="Next" translate
+                       translate-attr-aria-label="TODO.NEXT">
+                <md-icon md-font-icon="icon-chevron-right"></md-icon>
+            </md-button>
+        </div>
+  </md-select-header>
+  <md-optgroup label="name">
+    <md-option ng-value="item._id" ng-repeat="item in vm.list">
+        {{item.name}}
+    </md-option>
+  </md-optgroup>
+</md-select>
+
+<!-- MULTIPLE -->
+<md-select name="name" aria-label="name" ng-model="vm.selectedId" md-on-open="vm.onSelectMultipleOpen()" md-on-close="vm.onSelectMultipleClose()" md-selected-text="vm.selectedNames()" ng-if="multiple" multiple>
+  <md-select-header class="demo-select-header">
+    <input ng-model="vm.filter.search" ng-keydown="vm.selectChange($event)" ng-change="vm.refreshMultipleList()" maxlength="127" type="search"
+           placeholder="{{vm.placeholder}}"
+           class="demo-header-searchbox _md-text">
+        <div layout="row" layout-align="start center">
+            <span class="page-info" hide-sm>{{vm.pagination()}}</span>
+            <md-button class="md-icon-button arrow" ng-click="vm.prevPage()" aria-label="Previous" translate translate-attr-aria-label="TODO.PREVIOUS">
+                <md-icon md-font-icon="icon-chevron-left"></md-icon>
+            </md-button>
+            <span class="page-info" hide-sm>
+                Page&nbsp;{{vm.filter.page}}
+            </span>
+            <md-button class="md-icon-button arrow" ng-click="vm.nextPage()" aria-label="Next" translate
+                       translate-attr-aria-label="TODO.NEXT">
+                <md-icon md-font-icon="icon-chevron-right"></md-icon>
+            </md-button>
+        </div>
+  </md-select-header>
+  <md-optgroup label="name">
+    <md-option ng-value="item._id" ng-repeat="item in vm.list track by $index">
+        {{item.name}}
+    </md-option>
+  </md-optgroup>
+  <md-tooltip>
+    <p ng-bind-html="vm.getTooltipNamesList()"></p>
+  </md-tooltip>
+</md-select>

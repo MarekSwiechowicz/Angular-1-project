@@ -1,0 +1,274 @@
+<div id="template" class="page-layout carded left-sidenav" layout="row">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+    <!-- CENTER -->
+    <div class="center" layout="row"  id="glownyDuzy" flex>
+        <div ng-show="vm.showSidenav" id="show-sidenav" class="ms-theme-options-button md-primary-bg" ng-click="vm.toggleOptionsSidenav()">
+          <md-icon ng-if="vm.showSidenav" md-font-icon="icon-arrow-right" class="white-text"></md-icon>
+          <!-- <md-icon ng-if="vm.showSidenav" md-font-icon="icon-menu-right s50" class="white-text"></md-icon> -->
+        </div>
+
+        <div class="pasek md-whiteframe-4dp" flex="10" ng-if="vm.edit">
+            <div class="panel" id="pasekBoczny" layout="column">
+                <div class="box" >
+                    <div class="button soft-shadow" ng-click="vm.addVsBlock()" style="background-color: {{vm.colors.versus[0]}}; ">
+                        <span>1vs1</span>
+                    </div>
+                </div>
+                <div class="box" >
+                    <div class="button soft-shadow" ng-click="vm.addRRBlock()" style="background-color: {{vm.colors.RR[0]}}; ">
+                        <span>RoundRobin</span>
+                    </div>
+                </div>
+                <div class="box" >
+                    <div class="button soft-shadow" ng-click="vm.addCompetitionBlock()" style="background-color: {{vm.colors.competition[0]}}; ">
+                        <span>Competition</span>
+                    </div>
+                </div>
+                <div class="box" >
+                    <div class="button soft-shadow" ng-click="vm.addStandingsBlock()"  style="background-color: {{vm.colors.standings[0]}}; ">
+                        <span>Standings</span>
+                    </div>
+                </div>
+                <div class="box" >
+                    <div class="button soft-shadow" ng-click="vm.addRandListBlock()" style="background-color: {{vm.colors.randListBlock[0]}};">
+                        <span>Draw</span>
+                    </div>
+                </div>
+            </div>
+            <!-- KONIEC PANEL BOCZNY -->
+        </div>
+        <!-- KONIEC HEADER 2 -->
+        <div class="content-card noSelectable" layout="column" flex style="background: #eeeeee">
+            <div ng-click="vm.resetBlock()" ng-class="vm.edit ? 'contentWithGrid' : 'contentWithoutGrid'" style="overflow: scroll;" flex>
+                <div style="{{vm.getWidth()}}">
+                    <div class="page-header">
+                    </div>
+                    <div gridster="vm.gridsterOptions" flex="none" style="margin: 10px">
+                        <ul>
+                            <li gridster-item="vm.customMap" ng-repeat="block in vm.templateJson.blocks | toArray" flex="none" id="{{block.id}}">
+                                <div class="box-content" style="background-color:{{vm.colors[block.type][1]}};border-radius:5px;border:{{(vm.block.id===block.id) ? 'black' : vm.colors[block.type][1]}} solid 1px; -webkit-box-shadow: 2px 3px 4px -1px rgba(0,0,0,0.39);-moz-box-shadow: 2px 3px 4px -1px rgba(0,0,0,0.39);box-shadow: 2px 3px 4px -1px rgba(0,0,0,0.39);">
+                                    <block-template ng-click="vm.showDetailsOfBlock(block, $event)" edit-block="vm.block" set-players-in-json="vm.setPlayersInJson" ng-model="block" blocks="vm.templateJson.blocks" block-functions="vm.blockFunctions" edit="vm.edit"></block-template>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <md-sidenav id="options-sidenav" md-component-id="options-sidenav" class="md-sidenav-right grey-200-bg" md-is-locked-open="true" md-whiteframe="4" flex style="overflow: auto;" >
+
+<!--       <div id="hide-sidenav" class="ms-theme-options-button md-primary-bg" ng-click="vm.toggleOptionsSidenav()">
+          <md-icon  md-font-icon="icon-menu-right s50" class="white-text"></md-icon>
+      </div> -->
+
+        <!-- WIDGET GROUP -->
+        <div class="widget-group">
+            <!-- NOW WIDGET -->
+            <ms-widget flippable="false" class="sidenav-widget grey-300-bg" id="tamplateName">
+                <!-- Front -->
+                <div>
+                    <ms-widget-front>
+                        <div style="height:10px;">
+                        </div>
+                        <div class="pl-16 pr-8 pv-16" layout="column" layout-align="center center">
+                            <div class="h2 secondary-text">
+                                <span>TEMPLATE</span>
+                            </div>
+                            <div style="height:20px;">
+                            </div>
+                            <div class="font-size-26 line-height-48 secondary-text font-weight-600" layout>
+                                <div ng-if="vm.edit">
+                                    <input maxlength="17" type="text" style="text-align:center; border-style:none; background:#EEEEEE; color:black; border-bottom: 1px solid rgba(0, 0, 0, 0.4); min-width:200px; max-width:320px;" name="vm.tampleJson.name" ng-model="vm.templateJson.name" placeholder="Template Name">
+                                </div>
+                                <div ng-if="!vm.edit">
+                                    <span>{{vm.templateJson.name}}</span>
+                                </div>
+                            </div>
+                            <div style="height:20px;">
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                    </ms-widget-front>
+                    <!-- / Front -->
+                </div>
+            </ms-widget>
+            <!-- / NOW WIDGET -->
+            <!-- WEATHER WIDGET -->
+            <ms-widget flippable="false" class="sidenav-widget">
+                <!-- Front -->
+                <ms-widget-front>
+                    <div class="pl-30 pr-8 pv-16 grey-200-bg h3 secondary-text" layout="column">
+                        <div class="grey-200-bg h3 secondary-text" layout="row" layout-align="space-between center">
+                            <div flex="50">
+                                <span>VALID</span>
+                            </div>
+                            <div flex="50" ng-if="!vm.templateJson.valid" style="text-align:center">
+                                <md-icon style=" color: red" md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+                                <md-tooltip ng-if="!vm.templateJson.valid">
+                                    &nbsp {{vm.validMessage}}
+                                </md-tooltip>
+                            </div>
+                            <div flex="50" ng-if="vm.templateJson.valid" style="text-align:center">
+                                <md-icon style=" color: green" md-font-icon="icon-check" aria-label="Close dialog"></md-icon>
+                            </div>
+                        </div>
+                        <div class="grey-200-bg h3 secondary-text" layout="row" layout-align="space-between center">
+                            <div flex="50" id="private">
+                                <span>PRIVATE</span>
+                            </div>
+                            <div flex="50" style="text-align:center">
+                                <md-switch ng-disabled="!vm.edit" ng-model="vm.templateJson.private" aria-label="Private" layout-align="center center"></md-switch>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-16 pb-32 grey-200-bg" layout="row" layout-align="center center">
+                        <md-button ng-if="!vm.isNewTemplate && vm.edit" class="md-accent md-raised" ng-click="vm.updateTemplate()" translate="SAVE">
+                            SAVE
+                        </md-button>
+                        <md-button ng-if="vm.isNewTemplate && vm.edit" class="md-accent md-raised pull-right btn btn-primary" ng-click="vm.createTemplate()" translate="CREATE">
+                            CREATE
+                        </md-button>
+                        <md-button ng-if="vm.edit" ng-click="vm.clear()" class="md-accent md-raised pull-right btn btn-primary" style="background-color: white; color: {{vm.colors.text.red}}" translate="CLEAR">
+                            CLEAR
+                        </md-button>
+                        <md-button ng-if="!vm.edit" class="md-accent md-raised" style="background-color: green; color: white" ng-click="vm.runTemplate()" aria-label="RUN TEMPLATE" translate="RUN">
+                            RUN
+                            <md-tooltip ng-if="!templateJson.valid">Template is not valid</md-tooltip>
+                        </md-button>
+                        <md-button ng-if="!vm.edit && vm.isOwner" class="md-accent md-raised" style="background-color: white; color: {{vm.colors.text.red}}" ng-click="vm.editTemplate()" aria-label="EDIT TEMPLATE" translate-attr-aria-label="TEMPLATE.EDIT_TEMPLATE">
+                            EDIT
+                        </md-button>
+                        <md-button ng-if="!vm.edit && !vm.isOwner" class="md-accent md-raised" ng-click="vm.addToMyTemplates()" aria-label="EDIT TEMPLATE" translate-attr-aria-label="TEMPLATE.EDIT_TEMPLATE">
+                            ADD TO MY TEMPLATES
+                        </md-button>
+                        <md-button ng-if="(vm.edit || vm.isOwner) && !vm.isNewTemplate" class="md-accent md-raised" ng-click="vm.removeTemplate()" style="background-color: {{vm.colors.deleteButton}}; color: {{vm.colors.text.white}}" translate="DELETE">
+                            DELETE
+                        </md-button>
+                    </div>
+                    <md-divider></md-divider>
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <ms-widget flippable="false" class="sidenav-widget">
+                <!-- Front -->
+                <ms-widget-front>
+                    <div class="p-10 pb-2 grey-200-bg" layout="row" layout-align="start center">
+                        <div class="pl-16 pr-8 pv-16" ng-if="vm.edit && vm.block.id" layout="row" layout-align="start center">
+                            <div style="text-align: center;">
+                                <md-badge style="background-color: {{vm.colors.badge}};color:{{vm.colors.text.white}};padding: 14.2px 10px 10px 10px; margin-left: 10px; border-radius: 4px 4px 4px 4px; font-size:24px">&nbsp;{{vm.block.id}}&nbsp;</md-badge>
+                                <md-tooltip>ID</md-tooltip>
+                            </div>
+                            <div class="pl-16 pr-8 pv-16" ng-if="vm.edit && vm.block.id" layout="column" layout-align="left center" style="margin-left:15px">
+                                <div class="h2 secondary-text">
+                                    <span>BLOCK DETAILS</span>
+                                </div>
+                                <div class="h3 secondary-text" ng-if="vm.edit && vm.block.id" style="text-align:center">
+                                    <span ng-if="vm.block.type==='RR'">round robin</span>
+                                    <span ng-if="vm.block.type==='startList'">start list</span>
+                                    <span ng-if="vm.block.type==='randListBlock'">draw</span>
+                                    <span ng-if="vm.block.type==='versus'">1 vs 1</span>
+                                    <span ng-if="vm.block.type==='competition' || vm.block.type==='standings'"> {{vm.block.type}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="column" style="padding:10px">
+                        <div ng-if="vm.block.id" layout="row" layout-align="space-between center" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                            <div flex="50" style="height:32px; width:138px;">
+                                Block name
+                            </div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" maxlength="32" ng-model="vm.block.name" placeholder="Type name" class="inputowa" />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-between center" ng-if="vm.block.type == 'startList' || vm.block.type == 'competition' || vm.block.type == 'randListBlock'" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                            <div flex="50" style="height:32px; width:138px;">
+                                Players
+                            </div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfPlayers" default="1" type="number" min="1" max="128" class="inputowa" />
+                            </div>
+                        </div>
+                        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'RR'" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                            <div flex="50" style="height:32px; width:138px;">
+                                Players
+                            </div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfPlayers" placeholder="Type number" type="number" min="2" class="inputowa" />
+                            </div>
+                        </div>
+                        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'RR'" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                            <div flex="50" style="height:32px; width:138px;">
+                                Rounds
+                            </div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" ng-model="vm.block.logic.numberOfRounds" placeholder="Type number" default="1" type="number" min="1" class="inputowa" />
+                            </div>
+                        </div>
+                        <div layout-align="space-between center" layout="row" ng-if="vm.block.type == 'versus' || vm.block.type == 'competition' || vm.block.type == 'RR' || vm.block.type == 'standings'" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                            <div flex="30" style="height:32px; width:138px;">
+                                Winner
+                            </div>
+                            <div layout="row" flex="80">
+                                <div flex="50">
+                                    <input ng-disabled="!vm.edit" ng-model="vm.block.logic.sort" type="radio" value="desc" checked> Higher
+                                </div>
+                                <div flex="50">
+                                    <input ng-disabled="!vm.edit" ng-model="vm.block.logic.sort" type="radio" value="asc"> Lower
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.block.type == 'RR'" layout="column" class="pl-16 pr-8 pv-16 grey-200-bg h2 secondary-text" layout-align="space-between center">
+                        <div>
+                            Allocating Points
+                        </div>
+                    </div>
+                    <div ng-if="vm.block.type == 'RR'" layout="column" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                        <div>
+                            <input ng-disabled="!vm.edit" ng-model="vm.block.logic.modWritesPkt" type="radio" value="false" checked> Specify default points
+                        </div>
+                        <div>
+                            <input ng-disabled="!vm.edit" ng-model="vm.block.logic.modWritesPkt" type="radio" value="true"> Moderator writes points after match
+                        </div>
+                    </div>
+                    <div ng-if="vm.block.logic.modWritesPkt == 'false'" layout="column" class="pl-16 pr-8 pv-16 grey-200-bg h3 secondary-text">
+                        <div layout-align="space-between center" layout="row">
+                            <div flex="50">Pts for win:</div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.wPkt" class="inputowa">
+                            </div>
+                        </div>
+                        <div layout-align="space-between center" layout="row">
+                            <div flex="50">Pts for draw:</div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.dPkt" class="inputowa">
+                            </div>
+                        </div>
+                        <div layout-align="space-between center" layout="row">
+                            <div flex="50">Pts for loss:</div>
+                            <div flex="50">
+                                <input ng-disabled="!vm.edit" type="number" ng-model="vm.block.logic.lPkt" class="inputowa">
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="column" style="padding:10px" layout-align="center center">
+                        <div ng-if="vm.edit && vm.block.id">
+                            <md-button ng-if="vm.edit" ng-click="vm.close()" style="background-color:#b2b2b2;">Confirm</md-button>
+                        </div>
+                    </div>
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <!-- / WEATHER WIDGET -->
+        </div>
+        <!-- / WIDGET GROUP -->
+
+        <!-- <div id="potworek" style="background:green; width:200px;height:200px;">asdasd</div> -->
+    </md-sidenav>
+</div>

@@ -1,0 +1,43 @@
+<div  id="select" layout="row" ng-style="{'background-color':vm.block.scores[vm.number-1].available ? '{{vm.colors[vm.block.type][2]}}' : '{{vm.colors.background[0]}}'}">
+  <div flex="10" style="{{vm.labelsHeight}};" ng-if="vm.block.type!=='startList'">
+
+    <input class="myCheckBox myButton" ng-style="{'color':vm.colors[vm.block.type][0]}" ng-if="!((vm.pair.output.idBlock && (vm.pair.output.posInBlock!==vm.number || vm.pair.output.idBlock!==vm.block.id)) || vm.pair.input.idBlock===vm.block.id || (vm.block.inputs[vm.number-1].idBlock && vm.pair.input.idBlock))"
+        type="checkbox" ng-model="vm.block.inputs[vm.number-1].available" ng-disabled="!available" ng-click="vm.setOutput()" style="width: 19px; height: 19px; position: relative; top:-2px; right: 1px;">
+  </div>
+  <div flex="10" ng-if="vm.block.type==='startList'">
+  </div>
+  <div flex="80" layout="row">
+    <div ng-if="vm.block.type!=='startList'" style="width: 20px; height: 20px; background:{{vm.colors[vm.block.type][1]}}; border:{{vm.colors[vm.block.type][0]}} solid 1px; text-align:center">
+      {{vm.block.inputs[vm.number-1].idBlock}}
+    </div>
+    <div ng-if="vm.block.type!=='startList'" style="width: 20px; height: 20px; background:{{vm.colors[vm.block.type][1]}}; border:{{vm.colors[vm.block.type][0]}} solid 1px; text-align:center">
+      {{vm.block.inputs[vm.number-1].posInBlock}}
+    </div>
+    <div ng-if="vm.block.type==='startList'" flex="60 " style="text-align: center;">
+      Player {{vm.number}}
+    </div>
+
+    <div flex="35">
+
+    </div>
+    <div flex="35" ng-if="vm.block.type!=='startList'" style="border-left:{{vm.colors[vm.block.type][0]}} solid 1px; padding-left:20px;">
+      {{ vm.positionName }}
+    </div>
+
+    <!-- <div flex="20" style="text-align: left;">
+      <md-icon md-font-icon="icon-arrow-right" aria-label="aa" style="font-size:15px; text-align:right"></md-icon>
+    </div> -->
+
+    <div style="width: 20px; background:{{vm.colors[vm.block.type][1]}}; height: 20px; background:{{vm.colors[vm.block.type][1]}};  border:{{vm.colors[vm.block.type][0]}} solid 1px; text-align:center">
+      {{vm.block.outputs[vm.number-1].idBlock}}
+
+    </div>
+    <div style="width: 20px; background:{{vm.colors[vm.block.type][1]}}; height: 20px; background:{{vm.colors[vm.block.type][1]}};  border:{{vm.colors[vm.block.type][0]}} solid 1px; text-align:center">
+      {{vm.block.outputs[vm.number-1].posInBlock}}
+    </div>
+  </div>
+  <div flex="10"  style="{{vm.labelsHeight}};">
+    <input class="myCheckBox myButton"  ng-style="{'color':vm.colors[vm.block.type][0]}" ng-if="!((vm.pair.input.idBlock && (vm.pair.input.posInBlock!==vm.number || vm.pair.input.idBlock!==vm.block.id)) || vm.pair.output.idBlock===vm.block.id || (vm.block.outputs[vm.number-1].idBlock && vm.pair.output.idBlock))" type="checkbox"
+        ng-model="vm.block.outputs[vm.number-1].available" ng-disabled="!available" ng-click="vm.setInput()" style="width: 19px; height: 19px; position: relative; top:-2px; right: 1px; background: #ff0000;" flex>
+  </div>
+</div>

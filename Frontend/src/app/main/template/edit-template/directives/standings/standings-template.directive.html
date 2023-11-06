@@ -1,0 +1,39 @@
+<div id="twoPlayers" layout="column" style="height:220px">
+    <div layout="row" style=" {{vm.width}} text-align: center;background-color:{{vm.colors.standings[2]}};border-bottom:{{vm.colors.standings[0]}} solid 3px;">
+        <div flex="30"style="text-align:center;"> Check </div>
+        <div flex="40" > Name </div>
+        <div flex="25" > Id </div>
+    </div>
+    <div layout="column" style="height:200px; overflow:auto; overflow-x:hidden;">
+      <scrollable class="greenScrollbar" always-visible="true">
+        <!--         <md-select ng-model="vm.block.standingsInputs" md-on-open="vm.getAvailableCompetitions()" ng-change="vm.myFunction()" data-md-container-class="selectdemoSelectHeader" multiple>
+          <md-optgroup label="Competitions" style="background-color:{{vm.colors.background[1]}};">
+            <md-option ng-value="standings" ng-repeat="standings in vm.allCompetitions">{{standings}}</md-option>
+          </md-optgroup>
+        </md-select> -->
+        <!-- {{vm.allCompetitions}} -->
+        <div ng-repeat="competition in vm.allCompetitions.tab track by $index" style="border-bottom:{{vm.colors.standings[0]}} solid 1px; min-height: 40px; background-color:{{vm.colors.standings[2]}}" layout="row">
+            <div flex layout="row" layout-align="center end">
+            <!-- ng-model="vm.checks[$index].checked"  -->
+             <!-- ng-change="vm.myFunction()" -->
+              <md-checkbox ng-checked="vm.getChecked(competition)" ng-click="vm.onClick(competition)" ng-disabled="!edit" aria-label="checkbox"></md-checkbox>
+            </div>
+            <div flex layout="row" layout-align="center center">
+                <!-- <label>
+                    <input type="checkbox">Competition {{vm.allCompetitions[$index]}}
+                </label> -->
+                {{vm.getNameById(competition)}}
+            </div>
+            <div flex layout="row" layout-align="center center">
+                <!-- <label>
+                    <input type="checkbox">Competition {{vm.allCompetitions[$index]}}
+                </label> -->
+                <!-- {{vm.allCompetitions[$index]}} -->
+                {{competition}}
+            </div>
+        </div>
+      </scrollable>
+    </div>
+    <!--     <div layout="row" style="width:15px">
+    </div> -->
+</div>

@@ -1,0 +1,16 @@
+<div id="twoPlayers" layout="column" style="background-color:{{vm.colors.versus[2]}}">
+  <div layout="row" style="background-color:{{vm.colors.versus[2]}};border-bottom:{{vm.colors.versus[0]}} solid 2px;">
+    <div flex="15" id="wtff"> Pos </div>
+    <div flex="50"> Name </div>
+    <div flex="35">   Result  </div>
+  </div>
+  <div>
+    <div layout="row" ng-repeat="id in [0,1] track by $index" ng-class="'player'+vm.block.scores[id].Uid" ng-init="$last ? vm.finished() : angular.noop()" style="{{vm.labelsHeight}}">
+      <div flex="15" id="{{'in'+vm.block.id+'_'+$index}}"> {{ id + 1 }}. </div>
+      <div flex="50" class="notOverFlow" style="border-right:{{vm.colors.versus[0]}} solid 1px;"> {{players[vm.block.scores[id].Uid].name }}
+        <md-tooltip md-direction="right"> {{players[vm.block.scores[id].Uid].name }} </md-tooltip>
+      </div>
+      <div flex="35" id="{{'out'+vm.block.id+'_'+$index}}" style="padding-left:5px;"> {{ vm.block.scores[id].result}} </div>
+    </div>
+  </div>
+</div>

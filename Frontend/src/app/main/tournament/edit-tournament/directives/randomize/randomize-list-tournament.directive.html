@@ -1,0 +1,18 @@
+<div id="twoPlayers" layout="column" style="background-color:{{vm.colors.randListBlock[2]}};">
+  <div layout="row" style="background-color:{{vm.colors.randListBlock[2]}};border-bottom:{{vm.colors.randListBlock[0]}} solid 2px;">
+    <div flex="15"> Pos </div>
+    <div flex="40"> Before </div>
+    <div flex> After </div>
+  </div>
+  <div ng-repeat="player in vm.players track by $index" ng-init="$last ? vm.finished() : angular.noop()" style="{{vm.labelsHeight}}">
+    <div layout="row">
+      <div flex="15" id="{{'in'+vm.block.id+'_'+$index}}"> {{$index+1}}. </div>
+      <div flex="40" ng-class="'player'+vm.block.inputs[$index].Uid" class="notOverFlow"  style="border-right:{{vm.colors.competition[0]}} solid 1px; {{vm.labelsHeight}}"> {{players[vm.block.inputs[$index].Uid].name}}
+        <md-tooltip md-direction="right"> {{ players[vm.block.inputs[$index].Uid].name }} </md-tooltip>
+      </div>
+      <div flex ng-class="'player'+vm.block.scores[$index].Uid" class="notOverFlow" style="padding-left:5px;"> {{ players[vm.block.scores[$index].Uid].name }}
+        <md-tooltip md-direction="right"> {{ players[vm.block.scores[$index].Uid].name }} </md-tooltip>
+      </div>
+    </div>
+  </div>
+</div>

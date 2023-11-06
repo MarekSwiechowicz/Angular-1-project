@@ -1,0 +1,235 @@
+<md-dialog class="template-dialog" aria-label="New Template">
+    <form name="templateForm" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                    <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+
+<!--             <div layout="column" layout-align="center left" ng-cloak>
+              <label translate="Json">Json</label>
+              <div layout="column" layout-align="center left">
+                
+                <pre>{{vm.newTemplate}}</pre>
+                
+                <br>
+              </div>
+            </div> -->
+
+
+            
+<!--             <div layout="column" layout-align="center left" ng-cloak>
+              <label translate="Feature">Feature</label>
+              <div layout="column" layout-align="center left">
+                <md-select placeholder="Select feature" ng-model="vm.newTemplate.selectedFeatureId" md-on-open="vm.getFeaturesToSelect()" style="min-width: 200px;" md-autofocus ng-required="vm.newTemplate.selectedFeatureId ==='' ">
+                  <md-select-header class="demo-select-header">
+                    <input placeholder="Search for a feature..." ng-model="vm.featurePhrase" ng-keydown="vm.inputChange($event)" ng-change="vm.getFeaturesToSelect()" type="search" class="demo-header-searchbox _md-text">
+                  </md-select-header>
+                  <md-option ng-value="feature._id" ng-repeat="feature in vm.features track by $index">{{feature.properties.subject}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            
+
+            <md-input-container class="md-block">
+                <label translate="Subject">Subject</label>
+                <input name="subject" ng-model="vm.newTemplate.selectedSubject" required >
+                <div ng-messages="templateForm.subject.$error" ng-show="templateForm.subject.$touched" role="alert" >
+                    <div ng-message="required">
+                        <span translate="Subject required">Subject field is required</span>
+                    </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label translate="Description">Description</label>
+                <textarea name="description" placeholder="Lorem ipsum dolor sit amet..." ng-model="vm.newTemplate.selectedDescription" long-string required></textarea>
+                <div ng-messages="templateForm.description.$error" ng-show="templateForm.description.$touched" role="alert">
+                    <div ng-message="required">
+                        <span translate="Description required">Description field is required</span>
+                    </div>
+                    <div ng-message="longString">
+                        <span translate="Description field is too long (max 400 chars)">Description field is too long (max 400 chars)</span>
+                    </div>
+                </div>
+
+            </md-input-container> -->
+
+
+            
+
+            <div>
+                <div layout = "row">
+
+<!--                     <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak>
+                      <label translate="Author name">Author</label>
+                      <div layout="column" layout-align="center center">
+                        <md-select name="author" placeholder="Select author" ng-model="vm.newTemplate.selectedAuthorId" md-on-open="vm.getAuthorsToSelect()" style="min-width: 200px;">
+                          <md-select-header class="demo-select-header" >
+                            <input placeholder="Search for an author..." ng-model="vm.authorPhrase" ng-keydown="vm.inputChange($event)" ng-change="vm.getAuthorsToSelect()" type="search" class="demo-header-searchbox _md-text" ng-required="vm.newTemplate.selectedAuthorId ===''">
+                          </md-select-header>
+                          <md-option ng-value="user._id" ng-repeat="user in vm.users">{{user.properties.firstName + ' ' + user.properties.lastName}}</md-option>
+                        </md-select>
+                      </div>
+                    </div> -->
+
+
+<!--                     <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak >
+                      <label translate="Tracker">Tracker</label>
+                      <div layout="column" layout-align="center center">
+                        <md-select placeholder="Select tracker" ng-model="vm.newTemplate.selectedTrackerId" style="min-width: 200px;" ng-required="vm.newTemplate.selectedTrackerId ==='' ">
+                          <md-option ng-value="tracker.id" ng-repeat="tracker in vm.trackers">{{tracker.name}}</md-option>
+                        </md-select>
+                      </div>
+                    </div> -->
+
+                    <!-- <progress value="22" max="100"></progress> -->
+<!--                     <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak >
+                      <label translate="Done ratio">Done ratio</label>
+                      <div layout="column" layout-align="center center">
+                        <md-input-container class="md-block" >
+                          <label translate="Done ratio">Done ratio</label>
+                          <input placeholder="0-100" name="doneRatio" ng-model="vm.newTemplate.selectedDoneRatio" type="number" min="0" max="100" style="min-width: 200px;" required>
+                          <div ng-messages="templateForm.doneRatio.$error" ng-show="templateForm.doneRatio.$touched" role="alert">
+                              <div ng-message="required">
+                                  <span translate="Done Ratio required">Done ratio field is required</span>
+                              </div>
+                          </div>
+                        </md-input-container>
+                      </div>
+                    </div> -->
+
+                </div>
+            </div>
+
+             <div>
+                <div layout = "row" >
+<!--                     <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak >
+                      <label translate="Estimated hours">Estimated hours</label>
+                      <div layout="column" layout-align="center center">
+                        <md-input-container class="md-block" >
+                        <label translate="Estimated hours">Estimated hours</label>
+                        <input placeholder="2(h)" name="estimatedHours" ng-model="vm.newTemplate.selectedEstimatedHours" type="number" min="0" max="999999" style="min-width: 200px;" required>
+                          <div ng-messages="templateForm.estimatedHours.$error" ng-show="templateForm.estimatedHours.$touched" role="alert">
+                              <div ng-message="required">
+                                  <span translate="Estimated hours required">Estimated hours field is required</span>
+                              </div>
+                          </div>
+                        </md-input-container>
+                      </div>
+                    </div> -->
+
+<!--                     <div layout-xs="column" layout="row">
+                        <div flex class="date-container" style="margin-right:30px">
+                            <label translate="TEMPLATE.START_DATE">Start Date</label>
+                            <md-datepicker flex ng-model="vm.newTemplate.selectedStartDate" md-placeholder="Choose date" required></md-datepicker>
+                        </div>
+
+                        <div flex class="date-container" style="margin-right:30px">
+                            <label translate="TEMPLATE.DUE_DATE">Due Date</label>
+                            <md-datepicker flex ng-model="vm.newTemplate.selectedDueDate" md-placeholder="Choose date" required></md-datepicker>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div>
+
+   
+
+<!--             <div>
+                <div layout = "row" >
+                    <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak >
+                      <label translate="Priority">Priority</label>
+                      <div layout="column" layout-align="center center">
+                        <md-select name="selectedPriorityId" placeholder="Select priority" ng-model="vm.newTemplate.selectedPriorityId" style="min-width: 200px;" ng-required="vm.newTemplate.selectedPriorityId ===''">
+                          <md-option ng-value="priority.id" ng-repeat="priority in vm.priorities">{{priority.name}}</md-option>
+                        </md-select>
+                      </div>
+                    </div>
+
+                    <div layout="column" layout-align="center center" style=" margin-right:30px" ng-cloak>
+                      <label translate="Status">Status</label>
+                      <div layout="column" layout-align="center center">
+                        <md-select name="selectedStatusId" placeholder="Select status" ng-model="vm.newTemplate.selectedStatusId" style="min-width: 200px;" ng-required="vm.newTemplate.selectedStatusId ===''">
+                          <md-option ng-value="status.id" ng-repeat="status in vm.statuses">{{status.name}}</md-option>
+                        </md-select>
+                      </div>
+                    </div>
+
+                    
+                    <div layout="column" layout-align="center center" style="margin-right:30px" ng-cloak>
+                      <label translate="Category">Category</label>
+                      <div layout="column" layout-align="center center">
+                        <md-select name="selectedCategoryId" placeholder="Select Category" ng-model="vm.newTemplate.selectedCategoryId" style="min-width: 200px;" ng-required="vm.newTemplate.selectedCategoryId ===''">
+                          <md-option ng-value="category.id" ng-repeat="category in vm.categories">{{category.name}}</md-option>
+                        </md-select>
+                      </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+<!--             <div>
+                <div layout = "row" >
+                    start: {{vm.newTemplate.selectedStartDate}}
+                    <br>
+                    due: {{vm.newTemplate.selectedDueDate}}
+
+                </div>
+            </div>
+
+            <div>
+                <div layout = "row" >
+                    json:<br><pre> {{vm.newTemplate}}
+                    </pre>
+                </div>
+            </div> -->
+            
+
+            
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-if="!vm.flagNewTemplate" ng-click="vm.saveTemplate()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="templateForm.$invalid || templateForm.$pristine"
+                           aria-label="SAVE" translate="TEMPLATE.SAVE" translate-attr-aria-label="TEMPLATE.SAVE">
+                    SAVE
+                </md-button>
+
+                <md-button type="submit" ng-if="vm.flagNewTemplate" ng-click="vm.addNewTemplate()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="templateForm.$invalid || templateForm.$pristine"
+                           aria-label="ADD TEMPLATE" translate="ADD TEMPLATE" translate-attr-aria-label="TEMPLATE.ADD_TEMPLATE">
+                    ADD TEMPLATE
+                </md-button>
+
+<!--                 <md-button class="md-icon-button" aria-label="Attach file" translate
+                           translate-attr-aria-label="TEMPLATE.ATTACH_FILE">
+                    <md-icon md-font-icon="icon-paperclip"></md-icon>
+                </md-button>
+
+                <md-button class="md-icon-button" aria-label="Insert picture" translate
+                           translate-attr-aria-label="TEMPLATE.INSERT_PICTURE">
+                    <md-icon md-font-icon="icon-file-image-box"></md-icon>
+                </md-button> -->
+            </div>
+
+            <div layout="row">
+                <md-button class="md-icon-button" ng-click="vm.deleteTemplate($event)" aria-label="Delete" translate
+                           translate-attr-aria-label="TEMPLATE.DELETE">
+                    <md-icon md-font-icon="icon-delete"></md-icon>
+                    <md-tooltip><span translate="TEMPLATE.DELETE">DELETE</span></md-tooltip>
+                </md-button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
