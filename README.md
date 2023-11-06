@@ -88,10 +88,3 @@ Responses are in the following format:
 ```
 
 For detailed response structure, refer to the respective GET, POST, PUT, DELETE operations.
-
----
-
-Ensure to update this `README.md` with the specific details of your project where necessary.
-```
-
-This markdown is now ready to be used as your `README.md`.
